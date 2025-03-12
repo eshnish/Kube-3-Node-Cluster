@@ -34,5 +34,9 @@ In here I shall explain the steps taken into development of a **Three Node Clust
   - From the name its 'kubernetes CLI' used to pass commands to interact with the API to manage the clusters.
   - Manage the resources that are shared within the clusters.
   - A cluster has several resources that are being shared among applications. It would be services, deployment, logs, network, storage etc.
-    [bash]``````$ curl.exe -Lo "https://dl.k8s.io/v1.32.0/bin/windows/amd64/kubectl.exe.sha256"`````` --To install the executable
-    
+    [bash]``````$ curl.exe "https://dl.k8s.io/release/v1.32.0/bin/windows/amd64/kubectl.exe"`````` --To install the executable
+  - Next we need to install check-sum for the corresponding kubectl installed. This is done to verify whether the installed version is not tampered.
+    [bash]``````$ curl.exe -Lo "https://dl.k8s.io/v1.32.0/bin/windows/amd64/kubectl.exe.sha256"``````
+    [sh]``````CertUtil -hashfile kubectl.exe SHA256``````--CertUtil is a windows certificate management tool that calls in for hashing of installed kubectl.exe using the SHA256 algo.
+    [sh]``````type kubectl.exe.sha256`````` --This is the downloaded version of hash for comparison with the one that is generated.
+
