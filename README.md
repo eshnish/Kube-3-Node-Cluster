@@ -13,7 +13,7 @@ In here I shall explain the steps taken into development of a **Three Node Clust
   - Kind is known to be k8s in docker.
   - Prior to installation of **kind** if any containers to be removed, to free up space then use (I have used this because my system had very little disk space and resources were being       used insanely):
 
-    (``````**$ docker rm -f $(docker ps -aq)**)
+    ``````**$ docker rm -f $(docker ps -aq)**
     --#Shows the status of all containers that are running/stopped and force remove them.
 
     **Or**
