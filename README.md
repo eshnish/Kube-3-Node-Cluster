@@ -14,17 +14,20 @@ In here I shall explain the steps taken into development of a **Three Node Clust
   - Prior to installation of **kind** if any containers to be removed, to free up space then use (I have used this because my system had very little disk space and resources were being       used insanely):
 
     ``````$ docker rm -f $(docker ps -aq)``````
-    --#Shows the status of all containers that are running/stopped and force remove them.
+    --Shows the status of all containers that are running/stopped and force remove them.
 
     **Or**
 
     ``````$ docker container prune -f``````
-    --#For removing idle containers.
+    --For removing idle containers.
   
   - Install **kind**:
     ``````$ curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.27.0/kind-windows-amd64``````
-    --#Uses curl to install kind executable bin from the URL passed to save kind to your local system
-    --#'-L' instructs the curl to follow any redirects and 'o' is the output format in this case- **kind-windows-amd64.exe**
+    --Uses curl to install kind executable bin from the URL passed to save kind to your local system
+    --'-L' instructs the curl to follow any redirects and 'o' is the output format in this case- **kind-windows-amd64.exe**
 
     ``````$ choco install kind -y``````
-    --#To install kind binaries using a package manager. There are other package manager available as well but I have personally used this since it is safe. 
+    --To install kind binaries using a package manager. This the standard package manager for windows.
+    --If you are debian/ubuntu you could rely on apt.
+
+    
