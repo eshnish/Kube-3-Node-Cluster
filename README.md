@@ -13,21 +13,26 @@ In here I shall explain the steps taken into development of a **Three Node Clust
   - Kind is known to be k8s in docker.
   - Prior to installation of **kind** if any containers to be removed, to free up space then use (I have used this because my system had very little disk space and resources were being       used insanely):
 
-    ``````$ docker rm -f $(docker ps -aq)``````
+    [bash]``````$ docker rm -f $(docker ps -aq)``````
     --Shows the status of all containers that are running/stopped and force remove them.
 
     **Or**
 
-    ``````$ docker container prune -f``````
+    [bash]``````$ docker container prune -f``````
     --For removing idle containers.
   
   - Install **kind**:
-    ``````$ curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.27.0/kind-windows-amd64``````
+    [bash]``````$ curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.27.0/kind-windows-amd64``````
     --Uses curl to install kind executable bin from the URL passed to save kind to your local system
     --'-L' instructs the curl to follow any redirects and 'o' is the output format in this case- **kind-windows-amd64.exe**
 
-    ``````$ choco install kind -y``````
+    [bash]``````$ choco install kind -y``````
     --To install kind binaries using a package manager. This the standard package manager for windows.
     --If you are debian/ubuntu you could rely on apt.
 
+**Step2: Install kubectl**
+  - From the name its 'kubernetes CLI' used to pass commands to interact with the API to manage the clusters.
+  - Manage the resources that are shared within the clusters.
+  - A cluster has several resources that are being shared among applications. It would be services, deployment, logs, network, storage etc.
+    [bash]``````$ curl.exe -Lo "https://dl.k8s.io/v1.32.0/bin/windows/amd64/kubectl.exe.sha256"`````` --To install the executable
     
