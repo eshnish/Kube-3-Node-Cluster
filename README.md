@@ -16,5 +16,5 @@ In here I shall explain the steps taken into development of a **Three Node Clust
 
     **Or**
 
-    --#For removing idle containers.
     $ docker container prune -f
+    --#For removing idle containers.
