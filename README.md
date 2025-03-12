@@ -18,7 +18,7 @@ In here I shall explain the steps taken into development of a **Three Node Clust
 
     **Or**
 
-    **$ docker container prune -f**
+    ``````$ docker container prune -f``````
     --#For removing idle containers.
   
   - Install **kind**:
