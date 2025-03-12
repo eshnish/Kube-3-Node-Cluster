@@ -26,5 +26,5 @@ In here I shall explain the steps taken into development of a **Three Node Clust
     --#Uses curl to install kind executable bin from the URL passed to save kind to your local system
     --#'-L' instructs the curl to follow any redirects and 'o' is the output format in this case- **kind-windows-amd64.exe**
 
-    ``````$ choco install kind -y
+    ``````$ choco install kind -y``````
     --#To install kind binaries using a package manager. There are other package manager available as well but I have personally used this since it is safe. 
