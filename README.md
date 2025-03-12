@@ -22,4 +22,6 @@ In here I shall explain the steps taken into development of a **Three Node Clust
     --#For removing idle containers.
   
   - Install **kind**:
-    $ 
+    ``````$ curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.27.0/kind-windows-amd64``````
+    --#Uses curl to install kind bin from the URL passed and saved as **kind-windows-amd64.exe** into your local system
+    --# -L instructs the curl to follow any redirects and 'o' is the output format in which kind will be saved to the local system
