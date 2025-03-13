@@ -80,5 +80,43 @@ In here I shall explain the steps taken into development of a **Three Node Clust
     [bash] ``````kubectl expose deployment nginx --type=NodePort --port=80`````` --Exposes the nginx to a port.
     --This is the port through which all single point of requests from external sources would be coming in for the services.
 
+    --Now you can check your deployments, pods that has been created.
+    [sh] ``````kubectl get deployments``````
+
+    --For a detailed decription of the deployments.
+    [sh] ``````kubectl describe deployment nginx``````
+
+    [sh] ``````kubectl get pods``````
+
+**Init, create, add, push a repo**
+  - Initialize a repo on the root folder.
+    [sh] ``````cd Drive/Main_Folder/Sub_Folder/root git init``````
+
+    [bash] ``````touch .gitignore`````` --Create a .gitignore on the root
+    --This file is created to add untracked files into them.
+    --They have logs, swaps, env, pycache and node_modules as these get heavy in size and exposing highly sensitive data to version control becomes a security concern.
+
+    --Create a repo at github.
     
-    
+    --Now add the remote repo to your local system in the name origin.
+    [sh] ``````git remote add origin https://github.com/<user>/<repo-name>.git``````
+
+    --Add changes to the github repo.
+    [sh] ``````git add .``````
+
+    --Commit them.
+    [sh] ``````git commit -m "initial commit: namespace"``````
+
+    --Create a branch of local origin repo to remote repo as main
+    [sh] ``````git branch -M main`````` --This renames the branch to main
+
+    --Push all upstreams to the new main.
+    [sh] ``````git push -u origin main``````
+
+    [sh] ``````git push origin main``````
+
+    --Verify the remote repos (To do: while in root folder).
+    [sh] ``````git remote -v``````
+
+    --Verify the branch.
+    [sh] ``````git branch -r``````
