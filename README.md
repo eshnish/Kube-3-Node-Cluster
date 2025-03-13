@@ -146,7 +146,9 @@ In here I shall explain the steps taken into development of a **Three Node Clust
     [sh] ``````git push origin main``````
 
     --In my case this threw an error pointing that user pass has been removed and not able to identify.
-    --I had to manually generate a token by going to github.
+    --I had to manually generate a token by going to github (Ref:PAT).
+
+    --Push the generated token to github.
     
 
     
