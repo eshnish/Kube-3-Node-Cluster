@@ -75,3 +75,10 @@ In here I shall explain the steps taken into development of a **Three Node Clust
 
     [bash] ``````kubectl create deployment nginx --image=nginx`````` --Creates a K8s deployment in nginx.
     --In K8s nginx is used for the ingress controller. Ingress is used to re-route the internal traffic of the cluster which hits the services from external IP.
+    --In this case it takes the nginx image to deploy.
+
+    [bash] ``````kubectl expose deployment nginx --type=NodePort --port=80`````` --Exposes the nginx to a port.
+    --This is the port through which all single point of requests from external sources would be coming in for the services.
+
+    
+    
