@@ -27,7 +27,7 @@ In here I shall explain the steps taken into development of a **Three Node Clust
   
   - Install **kind**:
     [bash] ``````$ curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.27.0/kind-windows-amd64``````
-    --Uses curl to install kind executable bin from the URL passed to save kind to your local system
+    --Uses curl to install kind executable bin from the URL passed to save kind to your local system.
     --'-L' instructs the curl to follow any redirects and 'o' is the output format in this case- **kind-windows-amd64.exe**
 
     [bash] ``````$ choco install kind -y``````
@@ -44,8 +44,8 @@ In here I shall explain the steps taken into development of a **Three Node Clust
     [sh] ``````CertUtil -hashfile kubectl.exe SHA256``````--CertUtil is a windows certificate management tool that calls in for hashing of installed kubectl.exe using the SHA256 algo.
     [sh] ``````type kubectl.exe.sha256`````` --This is the downloaded version of hash for comparison with the one that is generated.
     [sh] ``````[System.Environment]::SetEnvironmentVariable("Path", $env:Path + ";C:\path\to\kubectl\folder", [System.EnvironmentVariableTarget]::Machine)`````` --Enables in setting a        path of the executable file to the 'env'.
-    [sh] ``````kubectl version --client`````` --To confirm the installation
-    [sh] ``````kubectl cluster-info`````` --This throws a url of the api used to communicate with it for users and other systems to interact with the cluster
+    [sh] ``````kubectl version --client`````` --To confirm the installation.
+    [sh] ``````kubectl cluster-info`````` --This throws a url of the api used to communicate with it for users and other systems to interact with the cluster.
 
 **Step3: Create cluster**
   - Create a config file in .yaml to define your k8s cluster in it.
@@ -59,7 +59,8 @@ In here I shall explain the steps taken into development of a **Three Node Clust
     --This notifies the api that it is a kind cluster with the version and the nodes going to be ready for work.
     --control-plane is the one that manages the cluster and their components: api server, scheduler, controller manager.
     --worker nodes are the ones that do the work: pods, deployments etc.
-    [bash] ``````kind create cluster --config kind-config.yaml`````` --Creates the cluster
+    [bash] ``````kind create cluster --config kind-config.yaml`````` --Creates the cluster.
     [bash] ``````kind get clusters`````` --Verify
-    [bash] ``````kind get nodes`````` --Displays details of nodes: status, age and ver
-    
+    [bash] ``````kind get nodes`````` --Displays details of nodes: status, age and ver.
+    [bash] ``````kubectl create deployment nginx --image=nginx`````` --Creates a K8s deployment in nginx.
+    --In K8s nginx is used for the ingress controller. Ingress is used to re-route the internal traffic of the cluster which hits the services from external IP.
