@@ -120,3 +120,33 @@ In here I shall explain the steps taken into development of a **Three Node Clust
 
     --Verify the branch.
     [sh] ``````git branch -r``````
+
+**Install Helm**
+  - I have used helm here because of the efficiency in managing the K8s applications for further enhancements, if required.
+  - It contains all the resources required to run an application and assists in automating through simple commands as all the configs are combined in a single reusable file.
+
+    [bash] ``````curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash``````
+    --Installs it from git and pushes into bash to run the installation.
+
+    [sh] ``````helm version`````` --Verify the version
+
+  - Create helm chart.
+    [sh] ``````helm create helm-chart``````
+
+    --Update dependencies.
+    [sh] ``````helm dependency update helm-chart``````
+
+    --Prior to adding to git you need to make sure you have user access.
+    --Troubleshoot by adding one.
+
+    [sh] ``````git config --global user.name "<user-name>"``````
+
+    [sh] ``````git commit -m "helm chart"``````
+
+    [sh] ``````git push origin main``````
+
+    --In my case this threw an error pointing that user pass has been removed and not able to identify.
+    --I had to manually generate a token by going to github.
+    
+
+    
