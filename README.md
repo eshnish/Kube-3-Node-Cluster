@@ -54,4 +54,5 @@ In here I shall explain the steps taken into development of a **Three Node Clust
           nodes:
           - role: control-plane
           - role: worker
-          - role: worker``````
+          - role: worker
+    ``````
