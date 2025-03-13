@@ -66,8 +66,12 @@ In here I shall explain the steps taken into development of a **Three Node Clust
     --This notifies the api that it is a kind cluster with the version and the nodes going to be ready for work.
     --control-plane is the one that manages the cluster and their components: api server, scheduler, controller manager.
     --worker nodes are the ones that do the work: pods, deployments etc.
+    
     [bash] ``````kind create cluster --config kind-config.yaml`````` --Creates the cluster.
+
     [bash] ``````kind get clusters`````` --Verify
+
     [bash] ``````kind get nodes`````` --Displays details of nodes: status, age and ver.
+
     [bash] ``````kubectl create deployment nginx --image=nginx`````` --Creates a K8s deployment in nginx.
     --In K8s nginx is used for the ingress controller. Ingress is used to re-route the internal traffic of the cluster which hits the services from external IP.
