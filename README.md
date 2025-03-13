@@ -12,10 +12,10 @@ First things first, decide where you are planning on to install **Docker** and t
 
 In here I shall explain the steps taken into development of a **Three Node Cluster in Kubernetes**.
 
-**Step1: Install Kind**
+**Step1: Install kind**
   - This is one tool that is the backbone in creation of kubernetes clusters.
   - Kind is known to be k8s in docker.
-  - Prior to installation of **kind** if any containers to be removed, to free up space then use (I have used this because my system had very little disk space and resources were being       used insanely):
+  - Prior to installation of **kind** if any containers to be removed, to free up space then use (I have used this because of scant resources):
 
     [bash] ``````$ docker rm -f $(docker ps -aq)``````
     --Shows the status of all containers that are running/stopped and force remove them.
@@ -45,3 +45,13 @@ In here I shall explain the steps taken into development of a **Three Node Clust
     [sh] ``````type kubectl.exe.sha256`````` --This is the downloaded version of hash for comparison with the one that is generated.
     [sh] ``````[System.Environment]::SetEnvironmentVariable("Path", $env:Path + ";C:\path\to\kubectl\folder", [System.EnvironmentVariableTarget]::Machine)`````` --Enables in setting a        path of the executable file to the 'env'.
     [sh] ``````kubectl version --client`````` --To confirm the installation
+    [sh] ``````kubectl cluster-info`````` --This throws a url of the api used to communicate with it for users and other systems to interact with the cluster
+
+**Step3: Create cluster**
+  - Create a config file in .yaml to define your k8s cluster in it.
+    ``````kind: Cluster
+          apiVersion: kind.x-k8s.io/v1alpha4
+          nodes:
+          - role: control-plane
+          - role: worker
+          - role: worker``````
