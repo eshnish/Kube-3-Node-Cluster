@@ -27,8 +27,7 @@ In here I shall explain the steps taken into development of a **Three Node Clust
   
   - Install **kind**:
     [bash] ``````$ curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.27.0/kind-windows-amd64``````
-    --Uses curl to install kind executable bin from the URL passed to save kind to your local system.
-
+    - Uses curl to install kind executable bin from the URL passed to save kind to your local system.
     - '-L' instructs the curl to follow any redirects and 'o' is the output format in this case- **kind-windows-amd64.exe**
 
     [bash] ``````$ choco install kind -y``````
@@ -48,19 +47,20 @@ In here I shall explain the steps taken into development of a **Three Node Clust
 
     [bash] ``````$ curl.exe -Lo "https://dl.k8s.io/v1.32.0/bin/windows/amd64/kubectl.exe.sha256"``````
 
-    [sh] ``````CertUtil -hashfile kubectl.exe SHA256
-    CertUtil is a windows certificate management tool that calls in for hashing of installed kubectl.exe using the SHA256 algo.``````
+    [sh] ``````CertUtil -hashfile kubectl.exe SHA256``````
+    - CertUtil is a windows certificate management tool that calls in for hashing of installed kubectl.exe using the SHA256 algo.
 
-    [sh] ``````type kubectl.exe.sha256
-    This is the downloaded version of hash for comparison with the one that is generated.``````
+    [sh] ``````type kubectl.exe.sha256``````
+    - This is the downloaded version of hash for comparison with the one that is generated.
 
-    [sh] ``````[System.Environment]::SetEnvironmentVariable("Path", $env:Path + ";C:\path\to\kubectl\folder", [System.EnvironmentVariableTarget]::Machine)
-    Enables in setting a path of the executable file to the 'env'.``````
+    [sh] ``````[System.Environment]::SetEnvironmentVariable("Path", $env:Path + ";C:\path\to\kubectl\folder", [System.EnvironmentVariableTarget]::Machine)``````
+    - Enables in setting a path of the executable file to the 'env'.
 
-    [sh] ``````kubectl version --client
-    To confirm the installation.``````
+    [sh] ``````kubectl version --client``````
+    - To confirm the installation.
 
-    [sh] ``````kubectl cluster-info`````` --This throws a url of the api used to communicate with it for users and other systems to interact with the cluster.
+    [sh] ``````kubectl cluster-info``````
+    - This throws a url of the api used to communicate with it for users and other systems to interact with the cluster.
 
 **Step3: Create cluster**
   - Create a config file in .yaml to define your k8s cluster in it.
@@ -71,30 +71,33 @@ In here I shall explain the steps taken into development of a **Three Node Clust
           - role: worker
           - role: worker
     ``````
-    --This notifies the api that it is a kind cluster with the version and the nodes going to be ready for work.
-
-    --control-plane is the one that manages the cluster and their components: api server, scheduler, controller manager.
-
-    --worker nodes are the ones that do the work: pods, deployments etc.
+    - This notifies the api that it is a kind cluster with the version and the nodes going to be ready for work.
+    - control-plane is the one that manages the cluster and their components: api server, scheduler, controller manager.
+    - worker nodes are the ones that do the work: pods, deployments etc.
     
-    [bash] ``````kind create cluster --config kind-config.yaml`````` --Creates the cluster.
+    [bash] ``````kind create cluster --config kind-config.yaml``````
+    - Creates the cluster.
 
-    [bash] ``````kind get clusters`````` --Verify
+    [bash] ``````kind get clusters``````
+    - Verify
 
-    [bash] ``````kind get nodes`````` --Displays details of nodes: status, age and ver.
+    [bash] ``````kind get nodes``````
+    - Displays details of nodes: status, age and ver.
 
-    [bash] ``````kubectl create deployment nginx --image=nginx`````` --Creates a K8s deployment in nginx.
-    --In K8s nginx is used for the ingress controller. Ingress is used to re-route the internal traffic of the cluster which hits the services from external IP.
-    --In this case it takes the nginx image to deploy.
+    [bash] ``````kubectl create deployment nginx --image=nginx``````
+    - Creates a K8s deployment in nginx.
+    - In K8s nginx is used for the ingress controller. Ingress is used to re-route the internal traffic of the cluster which hits the services from external IP.
+    - In this case it takes the nginx image to deploy.
 
-    [bash] ``````kubectl expose deployment nginx --type=NodePort --port=80`````` --Exposes the nginx to a port.
-    --This is the port through which all single point of requests from external sources would be coming in for the services.
-
-    --Now you can check your deployments, pods that has been created.
+    [bash] ``````kubectl expose deployment nginx --type=NodePort --port=80``````
+    - Exposes the nginx to a port.
+    - This is the port through which all single point of requests from external sources would be coming in for the services.
+    - Now you can check your deployments, pods that has been created.
+      
     [sh] ``````kubectl get deployments``````
 
-    --For a detailed decription of the deployments.
     [sh] ``````kubectl describe deployment nginx``````
+    - For a detailed decription of the deployments.
 
     [sh] ``````kubectl get pods``````
 
@@ -103,53 +106,51 @@ In here I shall explain the steps taken into development of a **Three Node Clust
     [sh] ``````cd Drive/Main_Folder/Sub_Folder/root git init``````
 
     [bash] ``````touch .gitignore`````` --Create a .gitignore on the root
-    --This file is created to add untracked files into them.
+    - This file is created to add untracked files into them.
+    - They have logs, swaps, env, pycache and node_modules as these get heavy in size and exposing highly sensitive data to version control becomes a security concern.
 
-    --They have logs, swaps, env, pycache and node_modules as these get heavy in size and exposing highly sensitive data to version control becomes a security concern.
-
-    --Create a repo at github.
+    - Create a repo at github.
     
-    --Now add the remote repo to your local system in the name origin.
     [sh] ``````git remote add origin https://github.com/<user>/<repo-name>.git``````
-
-    --Add changes to the github repo.
+    - Now add the remote repo to your local system in the name origin.
+    
     [sh] ``````git add .``````
-
-    --Commit them.
+    - Add changes to the github repo.
+    
     [sh] ``````git commit -m "initial commit: namespace"``````
-
-    --Create a branch of local origin repo to remote repo as main
-    [sh] ``````git branch -M main`````` --This renames the branch to main
-
-    --Push all upstreams to the new main.
+    - Commit them.
+  
+    [sh] ``````git branch -M main`````` --This renames the branch to main.
+    - Create a branch of local origin repo to remote repo as main.
+  
     [sh] ``````git push -u origin main``````
-
+    - Push all upstreams to the new main.
+    
     [sh] ``````git push origin main``````
 
-    --Verify the remote repos (To do: while in root folder).
     [sh] ``````git remote -v``````
-
-    --Verify the branch.
+    - Verify the remote repos (To do: while in root folder).
+  
     [sh] ``````git branch -r``````
-
+    - Verify the branch.
+    - 
 **Install Helm**
   - I have used helm here because of the efficiency in managing the K8s applications for further enhancements, if required.
-  
   - It contains all the resources required to run an application and assists in automating through simple commands as all the configs are combined in a single reusable file.
 
     [bash] ``````curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash``````
-    --Installs it from git and pushes into bash to run the installation.
+    - Installs it from git and pushes into bash to run the installation.
 
     [sh] ``````helm version`````` --Verify the version
 
   - Create helm chart.
     [sh] ``````helm create helm-chart``````
 
-    --Update dependencies.
     [sh] ``````helm dependency update helm-chart``````
-
-    --Prior to adding to git you need to make sure you have user access.
-    --Troubleshoot by adding one.
+    - Update dependencies.
+      
+    - Prior to adding to git you need to make sure you have user access.
+    - Troubleshoot by adding one.
 
     [sh] ``````git config --global user.name "<user-name>"``````
 
@@ -157,17 +158,17 @@ In here I shall explain the steps taken into development of a **Three Node Clust
 
     [sh] ``````git push origin main``````
 
-    --In my case this threw an error pointing that user pass has been removed and not able to identify.
+    - In my case this threw an error pointing that user pass has been removed and not able to identify.
 
-    --I had to manually generate a token by going to github (Ref:PAT).
+    - I had to manually generate a token by going to github (Ref:PAT).
 
-    --Push the generated token to github.
+    - Push the generated token to github.
 
     [sh] ``````git remote set url-origin https://eshnish:<token_key>@github.com/user/<repo-name>.git``````
 
     [sh] ``````git push origin main``````
 
-    --At times when the token has to be changed then you need to pull the token prior to a push.
+    - At times when the token has to be changed then you need to pull the token prior to a push.
 
     [sh] ``````git pull origin main``````
 
@@ -185,10 +186,35 @@ In here I shall explain the steps taken into development of a **Three Node Clust
   - Used to convenience for the users.
 
     [sh] ``````ssh-keygen -t ed25519 -C "email@mail.com"``````
-    --Uses the most recommended key such as ed25519 and throws a comment that gets added to the public key stored at github for identification purposes.
+    - Uses the most recommended key such as ed25519 and throws a comment that gets added to the public key stored at github for identification purposes.
 
     [bash] ``````cat ~/.ssh/id_ed25519.pub``````
-    --Displays the public ssh-id.
+    - Displays the public ssh-id.
+    - Go to github and paste the key and Save it in SSH key settings.
+      **Note: if you do not paste it to git then the system will throw error!**
 
-    
-    
+    [sh] ``````ssh -T git@github.com``````
+    - Testing connection.
+
+    [sh] ``````git remote -v``````
+    - Checking the key with remote repo.
+
+    [sh] ``````git push origin main``````
+    - Pushing the key to github repo.
+   
+**Step5: Create Kustomize.yaml file**
+  - In this case I have added Kustomize as they function similar to Helm. You don't need a helm engine when there is Kustomize.yaml. Added it for understanding purpose only.
+  - Kustomize is a template-free config file that has details of all the resources, customization.
+  - They also generates config map and secrets from other environments.
+  - Therefore, they are similar to helm-charts.
+    - Create a folder at the root.
+    - Create a kustomization.yaml.
+    [sh] ``````New-Item -Path D:\path\file\to\folder\<kustomization.yaml> -ItemType File``````
+      
+    - Add syntax.
+    ``````apiVersion: kustomize.config.k8s.io/v1beta1
+          kind: Kustomization
+          resources:
+          - deployment.yaml                                                                                                   
+          - service.yaml
+    ``````
