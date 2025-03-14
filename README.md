@@ -18,23 +18,23 @@ In here I shall explain the steps taken into development of a **Three Node Clust
   - Prior to installation of **kind** if any containers to be removed, to free up space then use (I have used this because of scant resources):
 
     [bash] ``````$ docker rm -f $(docker ps -aq)``````
-    --Shows the status of all containers that are running/stopped and force remove them.
+    - Shows the status of all containers that are running/stopped and force remove them.
 
     **Or**
 
     [bash] ``````$ docker container prune -f``````
-    --For removing idle containers.
+    - For removing idle containers.
   
   - Install **kind**:
     [bash] ``````$ curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.27.0/kind-windows-amd64``````
     --Uses curl to install kind executable bin from the URL passed to save kind to your local system.
 
-    --'-L' instructs the curl to follow any redirects and 'o' is the output format in this case- **kind-windows-amd64.exe**
+    - '-L' instructs the curl to follow any redirects and 'o' is the output format in this case- **kind-windows-amd64.exe**
 
     [bash] ``````$ choco install kind -y``````
-    --To install kind binaries using a package manager. This the standard package manager for windows.
+    - To install kind binaries using a package manager. This the standard package manager for windows.
 
-    --If you are debian/ubuntu you could rely on apt.
+    - If you are debian/ubuntu you could rely on apt.
 
 **Step2: Install kubectl**
   - From the name its 'kubernetes CLI' used to pass commands to interact with the API to manage the clusters.
@@ -42,22 +42,23 @@ In here I shall explain the steps taken into development of a **Three Node Clust
   - A cluster has several resources that are being shared among applications. It would be services, deployment, logs, network, storage etc.
 
     [bash] ``````$ curl.exe "https://dl.k8s.io/release/v1.32.0/bin/windows/amd64/kubectl.exe"``````
-    --To install the executable
+    - To install the executable
   
   - Next we need to install check-sum for the corresponding kubectl installed. This is done to verify whether the installed version is not tampered.
 
     [bash] ``````$ curl.exe -Lo "https://dl.k8s.io/v1.32.0/bin/windows/amd64/kubectl.exe.sha256"``````
 
-    [sh] ``````CertUtil -hashfile kubectl.exe SHA256``````
-    --CertUtil is a windows certificate management tool that calls in for hashing of installed kubectl.exe using the SHA256 algo.
+    [sh] ``````CertUtil -hashfile kubectl.exe SHA256
+    CertUtil is a windows certificate management tool that calls in for hashing of installed kubectl.exe using the SHA256 algo.``````
 
-    [sh] ``````type kubectl.exe.sha256``````
-    --This is the downloaded version of hash for comparison with the one that is generated.
+    [sh] ``````type kubectl.exe.sha256
+    This is the downloaded version of hash for comparison with the one that is generated.``````
 
-    [sh] ``````[System.Environment]::SetEnvironmentVariable("Path", $env:Path + ";C:\path\to\kubectl\folder", [System.EnvironmentVariableTarget]::Machine)``````
-    --Enables in setting a path of the executable file to the 'env'.
+    [sh] ``````[System.Environment]::SetEnvironmentVariable("Path", $env:Path + ";C:\path\to\kubectl\folder", [System.EnvironmentVariableTarget]::Machine)
+    Enables in setting a path of the executable file to the 'env'.``````
 
-    [sh] ``````kubectl version --client`````` --To confirm the installation.
+    [sh] ``````kubectl version --client
+    To confirm the installation.``````
 
     [sh] ``````kubectl cluster-info`````` --This throws a url of the api used to communicate with it for users and other systems to interact with the cluster.
 
