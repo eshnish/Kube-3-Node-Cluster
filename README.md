@@ -28,10 +28,12 @@ In here I shall explain the steps taken into development of a **Three Node Clust
   - Install **kind**:
     [bash] ``````$ curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.27.0/kind-windows-amd64``````
     --Uses curl to install kind executable bin from the URL passed to save kind to your local system.
+
     --'-L' instructs the curl to follow any redirects and 'o' is the output format in this case- **kind-windows-amd64.exe**
 
     [bash] ``````$ choco install kind -y``````
     --To install kind binaries using a package manager. This the standard package manager for windows.
+
     --If you are debian/ubuntu you could rely on apt.
 
 **Step2: Install kubectl**
@@ -39,16 +41,21 @@ In here I shall explain the steps taken into development of a **Three Node Clust
   - Manage the resources that are shared within the clusters.
   - A cluster has several resources that are being shared among applications. It would be services, deployment, logs, network, storage etc.
 
-    [bash] ``````$ curl.exe "https://dl.k8s.io/release/v1.32.0/bin/windows/amd64/kubectl.exe"`````` --To install the executable
+    [bash] ``````$ curl.exe "https://dl.k8s.io/release/v1.32.0/bin/windows/amd64/kubectl.exe"``````
+    --To install the executable
+  
   - Next we need to install check-sum for the corresponding kubectl installed. This is done to verify whether the installed version is not tampered.
 
     [bash] ``````$ curl.exe -Lo "https://dl.k8s.io/v1.32.0/bin/windows/amd64/kubectl.exe.sha256"``````
 
-    [sh] ``````CertUtil -hashfile kubectl.exe SHA256``````--CertUtil is a windows certificate management tool that calls in for hashing of installed kubectl.exe using the SHA256 algo.
+    [sh] ``````CertUtil -hashfile kubectl.exe SHA256``````
+    --CertUtil is a windows certificate management tool that calls in for hashing of installed kubectl.exe using the SHA256 algo.
 
-    [sh] ``````type kubectl.exe.sha256`````` --This is the downloaded version of hash for comparison with the one that is generated.
+    [sh] ``````type kubectl.exe.sha256``````
+    --This is the downloaded version of hash for comparison with the one that is generated.
 
-    [sh] ``````[System.Environment]::SetEnvironmentVariable("Path", $env:Path + ";C:\path\to\kubectl\folder", [System.EnvironmentVariableTarget]::Machine)`````` --Enables in setting a        path of the executable file to the 'env'.
+    [sh] ``````[System.Environment]::SetEnvironmentVariable("Path", $env:Path + ";C:\path\to\kubectl\folder", [System.EnvironmentVariableTarget]::Machine)``````
+    --Enables in setting a path of the executable file to the 'env'.
 
     [sh] ``````kubectl version --client`````` --To confirm the installation.
 
@@ -64,7 +71,9 @@ In here I shall explain the steps taken into development of a **Three Node Clust
           - role: worker
     ``````
     --This notifies the api that it is a kind cluster with the version and the nodes going to be ready for work.
+
     --control-plane is the one that manages the cluster and their components: api server, scheduler, controller manager.
+
     --worker nodes are the ones that do the work: pods, deployments etc.
     
     [bash] ``````kind create cluster --config kind-config.yaml`````` --Creates the cluster.
@@ -94,6 +103,7 @@ In here I shall explain the steps taken into development of a **Three Node Clust
 
     [bash] ``````touch .gitignore`````` --Create a .gitignore on the root
     --This file is created to add untracked files into them.
+
     --They have logs, swaps, env, pycache and node_modules as these get heavy in size and exposing highly sensitive data to version control becomes a security concern.
 
     --Create a repo at github.
@@ -123,6 +133,7 @@ In here I shall explain the steps taken into development of a **Three Node Clust
 
 **Install Helm**
   - I have used helm here because of the efficiency in managing the K8s applications for further enhancements, if required.
+  
   - It contains all the resources required to run an application and assists in automating through simple commands as all the configs are combined in a single reusable file.
 
     [bash] ``````curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash``````
@@ -146,9 +157,37 @@ In here I shall explain the steps taken into development of a **Three Node Clust
     [sh] ``````git push origin main``````
 
     --In my case this threw an error pointing that user pass has been removed and not able to identify.
+
     --I had to manually generate a token by going to github (Ref:PAT).
 
     --Push the generated token to github.
-    
 
+    [sh] ``````git remote set url-origin https://eshnish:<token_key>@github.com/user/<repo-name>.git``````
+
+    [sh] ``````git push origin main``````
+
+    --At times when the token has to be changed then you need to pull the token prior to a push.
+
+    [sh] ``````git pull origin main``````
+
+    [sh] ``````git branch -M main``````
+
+    [sh] ``````git push -u origin main``````
+
+    [sh] ``````git push origin main``````
+
+    --**The output throws the directories to be up-to-date**
+
+**Step4: Generate SSH key**
+  - SSH are used to access repos w/o any password authentication. private:public (local_system:github) keys.
+  - Authentication occurs by verifying the private in local system to the public key in github.
+  - Used to convenience for the users.
+
+    [sh] ``````ssh-keygen -t ed25519 -C "email@mail.com"``````
+    --Uses the most recommended key such as ed25519 and throws a comment that gets added to the public key stored at github for identification purposes.
+
+    [bash] ``````cat ~/.ssh/id_ed25519.pub``````
+    --Displays the public ssh-id.
+
+    
     
