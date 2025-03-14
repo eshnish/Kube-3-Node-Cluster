@@ -133,7 +133,7 @@ In here I shall explain the steps taken into development of a **Three Node Clust
   
     [sh] ``````git branch -r``````
     - Verify the branch.
-    - 
+
 **Install Helm**
   - I have used helm here because of the efficiency in managing the K8s applications for further enhancements, if required.
   - It contains all the resources required to run an application and assists in automating through simple commands as all the configs are combined in a single reusable file.
@@ -215,6 +215,6 @@ In here I shall explain the steps taken into development of a **Three Node Clust
     ``````apiVersion: kustomize.config.k8s.io/v1beta1
           kind: Kustomization
           resources:
-          - deployment.yaml                                                                                                   
+          - deployment.yaml
           - service.yaml
     ``````
