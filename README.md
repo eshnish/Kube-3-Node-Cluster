@@ -218,3 +218,5 @@ In here I shall explain the steps taken into development of a **Three Node Clust
           - deployment.yaml
           - service.yaml
     ``````
+**Step6: Create deploy.yaml file**
+  - 
