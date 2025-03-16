@@ -219,4 +219,30 @@ In here I shall explain the steps taken into development of a **Three Node Clust
           - service.yaml
     ``````
 **Step6: Create deploy.yaml file**
-  - 
+  - Deploy.yaml defines the updates and creation of set of identical pods.
+  - It usually makes sure all pods within a cluster are running and up-to-date.
+  - It is a config file which when applied to a cluster K8s converts them into an object based on the spec provided in the .yaml.
+    - Create a file named deploy.yaml into the desired folder.
+    [sh] ``````New-Item -Path D:\path\file\to\folder\<deploy.yaml> -ItemType File``````
+
+    - Add syntax.
+    ``````apiVersion: apps/v1
+          kind: Deployment
+          metadata:
+            name: my-app
+          spec:
+            replicas: 2
+            selector:
+              matchLabels:
+                app: my-app
+            template:
+              metadata:
+                labels:
+                  app: my-app
+              spec:
+                containers:
+                  - name: my-app
+                    image: nginx:latest
+                    ports:
+                    - containerPort: 80
+    ``````
