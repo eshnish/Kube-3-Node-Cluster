@@ -327,3 +327,7 @@ In here I shall explain the steps taken into development of a **Three Node Clust
 
     - Apply the sealed secret to the cluster.
     [bash] ``````kubectl apply -f sealed-secret.yaml``````
+
+**Step10: Push it to Github**
+
+Thats it! We have created a 3 node cluster up and running.
