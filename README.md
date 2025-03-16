@@ -220,9 +220,9 @@ In here I shall explain the steps taken into development of a **Three Node Clust
           - service.yaml
     ``````
 **Step6: Create deploy.yaml file**
-  - Deploy.yaml defines the updates and creation of set of identical pods.
+  - Deploy.yaml defines the updates and creation of set of identical pods winthin the cluster.
   - It usually makes sure all pods within a cluster are running and up-to-date.
-  - It is a config file which when applied to a cluster K8s converts them into an object based on the spec provided in the .yaml.
+  - It is a config file which when applied to a cluster K8s converts them into an object based on the spec provided in the config.
     - Create a file named deploy.yaml into the desired folder.
     
     [sh] ``````New-Item -Path D:\path\file\to\folder\<deploy.yaml> -ItemType File``````
@@ -247,4 +247,28 @@ In here I shall explain the steps taken into development of a **Three Node Clust
                     image: nginx:latest
                     ports:
                     - containerPort: 80
+    ``````
+**Step7: Create service.yaml file**
+  - Service is a config tile that is reponsible to route the incoming traffic to the available pods.
+  - Each time a service request is raised a service.yaml file needs to be created.
+  - All the traffic goes to the service file prior to the pod being exposed to the network.
+  - Applications communicate with the pod using the IP inside the service config.
+  - Every time a traffic is routed to the service a DNS is automatically assigned from the K8s service discovery system. So that there is no need to look up to the IP address everytime.
+    - Create a service.yaml file.
+   
+    [sh] ``````New-Item -Path D:\path\file\to\folder\<service.yaml> -ItemType File``````
+
+    - Add syntax.
+    ``````apiVersion: v1
+          kind: Service
+          metadata:
+            name: my-app-service
+          spec:
+            selector:
+              app: my-app
+            ports:
+              - protocol: TCP
+                port: 80
+                targetPort: 80
+            type: NodePort
     ``````
