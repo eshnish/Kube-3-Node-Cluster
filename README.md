@@ -248,6 +248,7 @@ In here I shall explain the steps taken into development of a **Three Node Clust
                     ports:
                     - containerPort: 80
     ``````
+
 **Step7: Create service.yaml file**
   - Service is a config tile that is reponsible to route the incoming traffic to the available pods.
   - Each time a service request is raised a service.yaml file needs to be created.
@@ -272,3 +273,57 @@ In here I shall explain the steps taken into development of a **Three Node Clust
                 targetPort: 80
             type: NodePort
     ``````
+    **Note: Any error occurred should be related to indentation. Make sure you provide with the specified indentation as per the commands provided above**
+
+**Step8: Install kubeseal**
+  - Kubeseal ensures the encryption of secret.yaml file (usually base64 encoded only) and stores them in repos or version control.
+  - It takes the public key within the cluster and encrypts them.
+  - The encrypted file could then be decrypted only by the sealed secret controller inside the cluster. It used the private key to decrypt it.
+  - It protects from unauthorized access of sensitive information.
+    - Install.
+
+    [bash] ``````sudo wget https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.16.0/kubeseal-linux-amd64 -O /usr/local/bin/kubeseal``````
+
+    - This gets the kubeseal binaries from the github and outputs them to the local bin so that users can execute them from anywhere.
+
+    [bash] ``````sudo chmod +x /usr/local/bin/kubeseal`````` **or** ``````sudo chmod 744 /usr/local/bin/kubeseal``````
+
+    - This makes the binary executable.
+
+**Step9: Generate a sealed secret file**
+  - A place to store sensitive information such as API keys, passwords, certificates.
+    - Create a sealed secret.
+
+    [sh] ``````New-Item -Path D:\path\file\to\folder\<secret.yaml> -ItemType File``````
+
+    - Add syntax.
+    ``````apiVersion: v1
+          kind: Secret
+          metadata:
+            name: my-secret
+          type: Opaque
+          data:
+            username: YWRtaW4=  # base64-encoded "admin"
+            password: cGFzc3dvcmQ=  # base64-encoded "password"
+    ``````
+
+    - Encrypt using kubeseal.
+   
+    [bash] ``````kubectl create secret generic my-secret --dry-run=client -o yaml | kubeseal --format yaml > sealed-secret.yaml``````
+
+    - This creates a secret which is generic in nature with the name 'my-secret' and asks to dry run rather than implementing to the cluster.
+    - Outputs the .yaml to kubseal in .yaml format into a file 'sealed-secret'.
+
+    - The generated file looks like -
+    ``````apiVersion: bitnami.com/v1alpha1
+          kind: SealedSecret
+          metadata:
+            name: my-secret
+          spec:
+            encryptedData:
+              username: AgBy3i4OJSWK+PiTySYZZA9rO43cGDEq...
+              password: BgBy3i4OJSWK+PiTySYZZA9rO43cGDEq...
+    ``````
+
+    - Apply the sealed secret to the cluster.
+    [bash] ``````kubectl apply -f sealed-secret.yaml``````
