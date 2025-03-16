@@ -209,6 +209,7 @@ In here I shall explain the steps taken into development of a **Three Node Clust
   - Therefore, they are similar to helm-charts.
     - Create a folder at the root.
     - Create a kustomization.yaml.
+    
     [sh] ``````New-Item -Path D:\path\file\to\folder\<kustomization.yaml> -ItemType File``````
       
     - Add syntax.
@@ -223,6 +224,7 @@ In here I shall explain the steps taken into development of a **Three Node Clust
   - It usually makes sure all pods within a cluster are running and up-to-date.
   - It is a config file which when applied to a cluster K8s converts them into an object based on the spec provided in the .yaml.
     - Create a file named deploy.yaml into the desired folder.
+    
     [sh] ``````New-Item -Path D:\path\file\to\folder\<deploy.yaml> -ItemType File``````
 
     - Add syntax.
